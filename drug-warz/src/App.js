@@ -328,15 +328,6 @@ function App() {
         <TurnInfo>
           Day {state.gameState.currentDay} | Turn {state.player.turn} | {state.locations[state.player.location].name}
           {isLoading && <span style={{ color: '#ffff00' }}> | Loading...</span>}
-          {apiConnected ? (
-            <span style={{ color: '#00ff00' }}> | Redis Connected</span>
-          ) : (
-            <span style={{ color: '#00ffff' }}> | Offline Mode</span>
-          )}
-          {priceSource === 'local' && <span style={{ color: '#00ff00' }}> | Local Prices</span>}
-          {priceSource === 'sqlite' && <span style={{ color: '#00ffff' }}> | SQLite Prices</span>}
-          {priceSource === 'fallback' && <span style={{ color: '#ffff00' }}> | Fallback Prices</span>}
-          {priceSource === 'error' && <span style={{ color: '#ff0066' }}> | Price Error</span>}
         </TurnInfo>
       </GameHeader>
       

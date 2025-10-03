@@ -240,14 +240,22 @@ const SpecialLocations = () => {
 
   const handleBuyGun = (gunId) => {
     const gun = state.guns.find(g => g.id === gunId);
-    if (player.cash >= gun.price) {
-      actions.buyGun(gunId);
-      soundManager.playSound('buy');
-      setStatusMessage({ type: 'success', text: `Bought ${gun.name} for $${gun.price.toLocaleString()}` });
-    } else {
+    
+    if (player.cash < gun.price) {
       soundManager.playSound('error');
       setStatusMessage({ type: 'error', text: 'Not enough cash!' });
+      return;
     }
+    
+    if (player.coatSize < gun.space) {
+      soundManager.playSound('error');
+      setStatusMessage({ type: 'error', text: 'Not enough coat space!' });
+      return;
+    }
+    
+    actions.buyGun(gunId);
+    soundManager.playSound('buy');
+    setStatusMessage({ type: 'success', text: `Bought ${gun.name} for $${gun.price.toLocaleString()}` });
   };
 
   const currentLocation = locations[player.location];
@@ -325,12 +333,12 @@ const SpecialLocations = () => {
                 <span>${gun.price.toLocaleString()}</span>
               </div>
               <div style={{ color: '#666', fontSize: '10px' }}>
-                Damage: {gun.damage} | Space: {gun.space}
+                Damage: {gun.damage} | Space: {gun.space} | Available: {player.coatSize}
               </div>
               <ActionButton 
                 style={{ marginTop: '5px', fontSize: '10px', padding: '5px' }}
                 onClick={() => handleBuyGun(gun.id)}
-                disabled={player.cash < gun.price}
+                disabled={player.cash < gun.price || player.coatSize < gun.space}
               >
                 BUY
               </ActionButton>

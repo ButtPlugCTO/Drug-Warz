@@ -133,6 +133,32 @@ const gameReducer = (state, action) => {
       }
       return state;
     
+    case 'BUY_GUN':
+      const { gunId } = action.payload;
+      const gun = state.guns.find(g => g.id === gunId);
+      
+      if (gun && state.player.cash >= gun.price && state.player.coatSize >= gun.space) {
+        const existingGun = state.player.guns.find(g => g.id === gunId);
+        const newGuns = existingGun 
+          ? state.player.guns.map(g => 
+              g.id === gunId 
+                ? { ...g, quantity: g.quantity + 1 }
+                : g
+            )
+          : [...state.player.guns, { id: gunId, quantity: 1 }];
+        
+        return {
+          ...state,
+          player: {
+            ...state.player,
+            cash: state.player.cash - gun.price,
+            coatSize: state.player.coatSize - gun.space,
+            guns: newGuns
+          }
+        };
+      }
+      return state;
+    
     case 'CHANGE_LOCATION':
       return {
         ...state,

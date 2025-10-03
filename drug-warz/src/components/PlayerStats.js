@@ -89,6 +89,50 @@ const HealthText = styled.div`
   }
 `;
 
+const CoatSizeBar = styled.div`
+  width: 100%;
+  height: 20px;
+  background: #000;
+  border: 1px solid #ffff00;
+  margin-top: 10px;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    height: 16px;
+    margin-top: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    height: 14px;
+    margin-top: 6px;
+  }
+`;
+
+const CoatSizeFill = styled.div`
+  height: 100%;
+  background: #ffff00;
+  width: ${props => Math.min(100, (props.coatSize / 100) * 100)}%;
+  transition: width 0.3s ease;
+`;
+
+const CoatSizeText = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #000;
+  font-weight: bold;
+  
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 9px;
+  }
+`;
+
 const PlayerStats = () => {
   const { state } = useGame();
   const { player } = state;
@@ -96,6 +140,9 @@ const PlayerStats = () => {
   const formatMoney = (amount) => {
     return `$${amount.toLocaleString()}`;
   };
+
+  // Debug: Log player data
+  console.log('PlayerStats - player data:', player);
 
   return (
     <StatsContainer>
@@ -123,7 +170,7 @@ const PlayerStats = () => {
       
       <StatRow>
         <StatLabel>Coat Size:</StatLabel>
-        <StatValue color="#ffff00">{player.coatSize}</StatValue>
+        <StatValue color="#ffff00">{player.coatSize || 'N/A'}</StatValue>
       </StatRow>
       
       <StatRow>
