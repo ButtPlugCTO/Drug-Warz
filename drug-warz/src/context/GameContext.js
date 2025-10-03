@@ -233,20 +233,6 @@ const gameReducer = (state, action) => {
         }
       };
     
-    case 'BUY_GUN':
-      const gun = state.guns.find(g => g.id === action.payload);
-      if (state.player.cash >= gun.price) {
-        return {
-          ...state,
-          player: {
-            ...state.player,
-            cash: state.player.cash - gun.price,
-            guns: [...state.player.guns, { ...gun, quantity: 1 }]
-          }
-        };
-      }
-      return state;
-    
     case 'HEAL':
       const healCost = Math.min(action.payload, 100 - state.player.health, state.player.cash);
       return {
