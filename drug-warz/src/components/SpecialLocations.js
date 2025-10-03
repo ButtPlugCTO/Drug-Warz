@@ -254,7 +254,7 @@ const SpecialLocations = () => {
     }
     
     actions.buyGun(gunId);
-    soundManager.playSound('buy');
+    soundManager.playSound('cashRegister');
     setStatusMessage({ type: 'success', text: `Bought ${gun.name} for $${gun.price.toLocaleString()}` });
   };
 

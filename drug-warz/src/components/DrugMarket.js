@@ -211,7 +211,7 @@ const DrugMarket = memo(({ getCurrentDrugPrice }) => {
     }
     
     actions.buyDrug(drugId, quantity, price);
-    soundManager.playSound('buy');
+    soundManager.playSound('cashRegister');
     setStatusMessage({ type: 'success', text: `Bought ${quantity} ${drugs.find(d => d.id === drugId).name} for $${totalCost.toLocaleString()}` });
     setQuantities(prev => ({ ...prev, [drugId]: '' }));
   };

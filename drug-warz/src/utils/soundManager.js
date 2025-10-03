@@ -73,8 +73,9 @@ class SoundManager {
       'combat': 'colt',         // Gun sound for combat start
       
       // Trading sounds (adapted)
-      'buy': 'murmur',          // Private message for buying
-      'sell': 'message'         // Public message for selling
+      'buy': 'message',         // Public message for buying (cash register-like)
+      'sell': 'murmur',         // Private message for selling
+      'cashRegister': 'message' // Cash register sound for purchases
     };
 
     const originalSound = soundMap[soundName] || soundName;
