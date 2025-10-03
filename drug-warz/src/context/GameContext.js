@@ -13,7 +13,10 @@ const initialState = {
     coatSize: 100,
     turn: 1,
     guns: [],
-    drugs: [],
+    drugs: [
+      { id: 11, quantity: 5 }, // Start with some Weed
+      { id: 4, quantity: 10 }  // Start with some Ludes
+    ],
     bitches: 0
   },
   locations: [

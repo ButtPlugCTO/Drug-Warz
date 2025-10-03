@@ -144,6 +144,20 @@ const LeftPanel = styled.div`
   }
 `;
 
+const PlayerStatsContainer = styled.div`
+  flex-shrink: 0;
+`;
+
+const LocationPanelContainer = styled.div`
+  flex-shrink: 0;
+`;
+
+const InventoryPanelContainer = styled.div`
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+`;
+
 const RightPanel = styled.div`
   flex: 1;
   display: flex;
@@ -328,9 +342,15 @@ function App() {
       
       <MainGameArea>
         <LeftPanel>
-          <PlayerStats />
-          <LocationPanel />
-          <InventoryPanel />
+          <PlayerStatsContainer>
+            <PlayerStats />
+          </PlayerStatsContainer>
+          <LocationPanelContainer>
+            <LocationPanel />
+          </LocationPanelContainer>
+          <InventoryPanelContainer>
+            <InventoryPanel />
+          </InventoryPanelContainer>
         </LeftPanel>
         
         <RightPanel>

@@ -131,6 +131,18 @@ const InventoryPanel = () => {
   return (
     <InventoryContainer>
       <InventoryTitle>INVENTORY</InventoryTitle>
+      {/* Debug info - remove this later */}
+      <div style={{ 
+        fontSize: '9px', 
+        color: '#666', 
+        textAlign: 'center', 
+        marginBottom: '5px',
+        border: '1px solid #333',
+        padding: '2px',
+        background: '#001111'
+      }}>
+        Debug: Drugs: {player.drugs.length}, Guns: {player.guns.length}
+      </div>
       
       <TabContainer>
         <Tab 
@@ -151,8 +163,20 @@ const InventoryPanel = () => {
         {activeTab === 'drugs' && (
           <>
             {player.drugs.length === 0 ? (
-              <div style={{ color: '#666', textAlign: 'center', padding: '15px', fontSize: '11px' }}>
-                No drugs in inventory
+              <div style={{ 
+                color: '#00ffff', 
+                textAlign: 'center', 
+                padding: '20px', 
+                fontSize: '12px',
+                border: '1px dashed #00ffff',
+                background: 'rgba(0, 255, 255, 0.05)',
+                borderRadius: '4px',
+                margin: '10px 0'
+              }}>
+                📦 No drugs in inventory<br/>
+                <span style={{ fontSize: '10px', color: '#888' }}>
+                  Buy drugs from the market to see them here
+                </span>
               </div>
             ) : (
               player.drugs.map((drug, index) => (
@@ -171,8 +195,20 @@ const InventoryPanel = () => {
         {activeTab === 'guns' && (
           <>
             {player.guns.length === 0 ? (
-              <div style={{ color: '#666', textAlign: 'center', padding: '15px', fontSize: '11px' }}>
-                No guns in inventory
+              <div style={{ 
+                color: '#00ffff', 
+                textAlign: 'center', 
+                padding: '20px', 
+                fontSize: '12px',
+                border: '1px dashed #00ffff',
+                background: 'rgba(0, 255, 255, 0.05)',
+                borderRadius: '4px',
+                margin: '10px 0'
+              }}>
+                🔫 No guns in inventory<br/>
+                <span style={{ fontSize: '10px', color: '#888' }}>
+                  Buy guns from the gun shop to see them here
+                </span>
               </div>
             ) : (
               player.guns.map((gun, index) => (
