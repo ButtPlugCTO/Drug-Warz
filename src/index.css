@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+  color: #00ffff;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Custom scrollbar for retro feel */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+  border: 1px solid #00ffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ffff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cccc;
+}
+
+/* Terminal-style text selection */
+::selection {
+  background: #00ffff;
+  color: #000;
+}
+
+::-moz-selection {
+  background: #00ffff;
+  color: #000;
+}
+
+/* Input focus styles */
+input:focus {
+  outline: 2px solid #00ffff;
+  outline-offset: 2px;
+}
+
+/* Button focus styles */
+button:focus {
+  outline: 2px solid #00ffff;
+  outline-offset: 2px;
+}
