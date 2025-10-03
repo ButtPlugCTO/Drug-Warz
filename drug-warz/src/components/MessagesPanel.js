@@ -6,7 +6,6 @@ import soundManager from '../utils/soundManager';
 const MessagesContainer = styled.div`
   height: 100%;
   padding: 15px 15px 0 15px;
-  overflow-y: auto;
   background: #000;
   box-sizing: border-box;
   display: flex;
@@ -28,15 +27,26 @@ const MessagesTitle = styled.h3`
 `;
 
 const MessageList = styled.div`
-  max-height: 150px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
   
-  @media (max-width: 768px) {
-    max-height: 100px;
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 6px;
   }
   
-  @media (max-width: 480px) {
-    max-height: 80px;
+  &::-webkit-scrollbar-track {
+    background: #001a1a;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #00ffff;
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00cccc;
   }
 `;
 
@@ -58,7 +68,6 @@ const MessageItem = styled.div`
 
 const MessagesContent = styled.div`
   flex: 1;
-  overflow-y: auto;
   padding-bottom: 15px;
 `;
 
