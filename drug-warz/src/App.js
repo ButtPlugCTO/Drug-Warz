@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useGame } from './context/GameContext';
-import { AuthProvider } from './context/AuthContext';
 import apiClient from './utils/apiClient';
 import PlayerStats from './components/PlayerStats';
 import LocationPanel from './components/LocationPanel';
@@ -14,8 +13,6 @@ import StartScreen from './components/StartScreen';
 import GameOverScreen from './components/GameOverScreen';
 import CombatSystem from './components/CombatSystem';
 import VictoryScreen from './components/VictoryScreen';
-import SoundControls from './components/SoundControls';
-import AuthButtonComponent from './components/AuthButton';
 import soundManager from './utils/soundManager';
 
 const AppContainer = styled.div`
@@ -122,13 +119,14 @@ const MainGameArea = styled.div`
 `;
 
 const LeftPanel = styled.div`
-  width: 300px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   border-right: 2px solid #00ffff;
   background: #001a1a;
   flex-shrink: 0;
   min-height: 0;
+  overflow: hidden;
   
   @media (max-width: 768px) {
     width: 100%;
@@ -190,7 +188,7 @@ function App() {
   const [drugPrices, setDrugPrices] = useState({});
   const [priceSource, setPriceSource] = useState('unknown');
 
-  // Load drug prices from API
+  // Load drug prices (offline mode uses local calculation)
   useEffect(() => {
     const loadDrugPrices = async () => {
       if (apiConnected) {
@@ -208,6 +206,9 @@ function App() {
           console.error('Failed to load drug prices:', error);
           setPriceSource('error');
         }
+      } else {
+        // Offline mode - use local price calculation
+        setPriceSource('local');
       }
     };
 
@@ -308,8 +309,6 @@ function App() {
 
   return (
     <AppContainer>
-      <AuthButtonComponent />
-      <SoundControls />
       <GameHeader>
         <GameTitle>DRUG WARZ</GameTitle>
         <TurnInfo>
@@ -318,8 +317,9 @@ function App() {
           {apiConnected ? (
             <span style={{ color: '#00ff00' }}> | Redis Connected</span>
           ) : (
-            <span style={{ color: '#ff0066' }}> | Offline Mode</span>
+            <span style={{ color: '#00ffff' }}> | Offline Mode</span>
           )}
+          {priceSource === 'local' && <span style={{ color: '#00ff00' }}> | Local Prices</span>}
           {priceSource === 'sqlite' && <span style={{ color: '#00ffff' }}> | SQLite Prices</span>}
           {priceSource === 'fallback' && <span style={{ color: '#ffff00' }}> | Fallback Prices</span>}
           {priceSource === 'error' && <span style={{ color: '#ff0066' }}> | Price Error</span>}
@@ -352,12 +352,4 @@ function App() {
   );
 }
 
-const AppWithAuth = () => {
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  );
-};
-
-export default AppWithAuth;
+export default App;

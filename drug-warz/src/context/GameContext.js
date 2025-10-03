@@ -301,25 +301,16 @@ export const GameProvider = ({ children }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [apiConnected, setApiConnected] = React.useState(false);
 
-  // Initialize API connection and game state
+  // Initialize game state (offline mode)
   useEffect(() => {
     const initializeGame = async () => {
       try {
         setIsLoading(true);
-        const isHealthy = await apiClient.healthCheck();
-        setApiConnected(isHealthy);
-        
-        if (isHealthy) {
-          const gameState = await apiClient.initGame();
-          // Update local state with server state
-          Object.keys(gameState).forEach(key => {
-            if (gameState[key] !== state[key]) {
-              dispatch({ type: 'LOAD_GAME_STATE', payload: gameState });
-            }
-          });
-        }
+        // Disable API connection for standalone game
+        setApiConnected(false);
+        console.log('Running in offline mode - no backend server required');
       } catch (error) {
-        console.error('Failed to initialize game with API:', error);
+        console.error('Failed to initialize game:', error);
         setApiConnected(false);
       } finally {
         setIsLoading(false);

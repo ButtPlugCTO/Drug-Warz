@@ -3,57 +3,73 @@ import styled from 'styled-components';
 import { useGame } from '../context/GameContext';
 
 const InventoryContainer = styled.div`
-  padding: 15px;
+  padding: 10px;
   flex: 1;
   overflow-y: auto;
-  min-width: 200px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   
   @media (max-width: 768px) {
-    padding: 10px;
-    min-width: 150px;
+    padding: 8px;
   }
   
   @media (max-width: 480px) {
-    padding: 8px;
-    min-width: 120px;
+    padding: 6px;
   }
 `;
 
 const InventoryTitle = styled.h3`
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
   color: #00ffff;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #00ffff;
+  padding-bottom: 5px;
 `;
 
 const TabContainer = styled.div`
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 const Tab = styled.button`
   flex: 1;
-  padding: 8px;
+  padding: 6px;
   background: ${props => props.active ? '#00ffff' : 'transparent'};
   color: ${props => props.active ? '#000' : '#00ffff'};
   border: 1px solid #00ffff;
   font-family: 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 11px;
   cursor: pointer;
+  transition: all 0.2s ease;
   
   &:first-child {
     border-right: none;
   }
+  
+  &:hover {
+    background: ${props => props.active ? '#00ffff' : 'rgba(0, 255, 255, 0.1)'};
+  }
 `;
 
 const InventoryList = styled.div`
-  max-height: 300px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
   
-  @media (max-width: 768px) {
-    max-height: 200px;
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
   }
   
-  @media (max-width: 480px) {
-    max-height: 150px;
+  &::-webkit-scrollbar-track {
+    background: #001a1a;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #00ffff;
+    border-radius: 3px;
   }
 `;
 
@@ -61,25 +77,35 @@ const InventoryItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
-  margin-bottom: 5px;
+  padding: 6px;
+  margin-bottom: 4px;
   background: #001a1a;
   border: 1px solid #00ffff;
-  font-size: 12px;
+  font-size: 11px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #002222;
+    border-color: #00cccc;
+  }
 `;
 
 const ItemName = styled.div`
   color: #00ffff;
   font-weight: bold;
+  font-size: 11px;
 `;
 
 const ItemQuantity = styled.div`
   color: #ffff00;
+  font-weight: bold;
+  font-size: 12px;
 `;
 
 const ItemDetails = styled.div`
-  color: #00ffff;
-  font-size: 10px;
+  color: #888;
+  font-size: 9px;
+  margin-top: 2px;
 `;
 
 const InventoryPanel = () => {
@@ -125,7 +151,7 @@ const InventoryPanel = () => {
         {activeTab === 'drugs' && (
           <>
             {player.drugs.length === 0 ? (
-              <div style={{ color: '#666', textAlign: 'center', padding: '20px' }}>
+              <div style={{ color: '#666', textAlign: 'center', padding: '15px', fontSize: '11px' }}>
                 No drugs in inventory
               </div>
             ) : (
@@ -145,7 +171,7 @@ const InventoryPanel = () => {
         {activeTab === 'guns' && (
           <>
             {player.guns.length === 0 ? (
-              <div style={{ color: '#666', textAlign: 'center', padding: '20px' }}>
+              <div style={{ color: '#666', textAlign: 'center', padding: '15px', fontSize: '11px' }}>
                 No guns in inventory
               </div>
             ) : (

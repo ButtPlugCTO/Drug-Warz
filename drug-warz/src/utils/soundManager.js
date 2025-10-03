@@ -36,7 +36,12 @@ class SoundManager {
 
   // Play sound with original DopeWars mapping
   playSound(soundName) {
-    if (!this.enabled) return;
+    if (!this.enabled) {
+      console.log(`Sound disabled, skipping: ${soundName}`);
+      return;
+    }
+
+    console.log(`Playing sound: ${soundName}`);
 
     // Map our game events to original DopeWars sounds
     const soundMap = {
